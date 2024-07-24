@@ -13,7 +13,7 @@ const getCountryData = function (country) {
     //   console.log(this.responseText);
 
     const [data] = JSON.parse(this.responseText);
-    // console.log(data);
+    console.log(data);
 
     // get currency name
 
@@ -23,6 +23,18 @@ const getCountryData = function (country) {
         for (let currencyCode in currencies) {
           if (currencies.hasOwnProperty(currencyCode)) {
             return currencies[currencyCode].name;
+          }
+        }
+      }
+      return undefined;
+    }
+
+    function getCurrencySymbol(data) {
+      const currencies = data.currencies;
+      if (currencies) {
+        for (let currencyCode in currencies) {
+          if (currencies.hasOwnProperty(currencyCode)) {
+            return currencies[currencyCode].symbol;
           }
         }
       }
@@ -43,6 +55,7 @@ const getCountryData = function (country) {
     }
 
     const currencyName = getCurrencyName(data);
+    const currencySymbol = getCurrencySymbol(data);
     const countryLanguage = getCountryLanguage(data);
 
     const html = `<article class="country platypi">
@@ -52,18 +65,20 @@ const getCountryData = function (country) {
   </h3>
  
             <h4 class="country__region">${data.region}</h4>
-             <h5 class="country__capital"><span>Capital: </span>${
-               data.capital[0]
-             }</h5>
+             <p class="country__row"><span>🏛</span>${data.capital[0]}</p>
+             
             <p class="country__row"><span>👫</span>${(
               +data.population / 1000000
-            ).toFixed(1)} people</p>
+            ).toFixed(1)}m people</p>
             <p class="country__row"><span>🗣️</span>${countryLanguage}</p>
-            <p class="country__row"><span>💰</span>${currencyName}</p>
+            <p class="country__row"><span>💰</span>${currencyName}, ${currencySymbol}</p>
+            <p class="country__row"><span>🌐</span>${data.borders.join(
+              ", "
+            )}</p>
           </div>
         </article>`;
 
-    countriesContainer.insertAdjacentHTML("beforeend", html);
+    countriesContainer.insertAdjacentHTML("afterbegin", html);
     countriesContainer.style.opacity = 1;
   });
 };

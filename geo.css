@@ -29,6 +29,15 @@ body {
   text-align: center;
 }
 
+@media (max-width: 768px) {
+  .desc {
+    font-size: 16px;
+  }
+  .country {
+    font-size: 1.5rem;
+  }
+}
+
 .platypi {
   font-family: "Platypi", serif;
   font-optical-sizing: auto;
@@ -96,6 +105,7 @@ body {
   font-size: 2rem;
   opacity: 0;
   transition: opacity 1s;
+  margin-bottom: 30px;
 }
 
 .country {
