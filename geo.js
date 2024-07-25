@@ -71,7 +71,9 @@ const getCountryData = function (country) {
               +data.population / 1000000
             ).toFixed(1)}m people</p>
             <p class="country__row"><span>🗣️</span>${countryLanguage}</p>
-            <p class="country__row"><span>🕒</span>${data.timezones[0]}</p>
+            <p class="country__row"><span>🕒</span>${data.timezones.join(
+              ", "
+            )}</p>
             <p class="country__row"><span>💰</span>${currencyName}, ${currencySymbol}</p>
             <p class="country__row"><span>🌐</span>${data.borders.join(
               ", "
