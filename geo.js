@@ -64,20 +64,24 @@ const getCountryData = function (country) {
             <h3 class="country__name">${data.name.common} 
   </h3>
  
-            <h4 class="country__region">${data.region}</h4>
+            <h4 class="country__region">${data.subregion}</h4>
              <p class="country__row"><span>🏛</span>${data.capital[0]}</p>
-             
-            <p class="country__row"><span>👫</span>${(
-              +data.population / 1000000
-            ).toFixed(1)}m people</p>
+          
+      <p class="country__row"><span>👫</span>${(
+        +data.population / 1000000
+      ).toFixed(1)}m people</p> 
             <p class="country__row"><span>🗣️</span>${countryLanguage}</p>
             <p class="country__row"><span>🕒</span>${data.timezones.join(
               ", "
             )}</p>
             <p class="country__row"><span>💰</span>${currencyName}, ${currencySymbol}</p>
-            <p class="country__row"><span>🌐</span>${data.borders.join(
-              ", "
-            )}</p>
+            ${
+              data.borders && data.borders.length > 0
+                ? ` <p class="country__row">
+                  <span>🌐</span>${data.borders.join(", ")}
+                </p>`
+                : ""
+            };
           </div>
         </article>`;
 
@@ -100,6 +104,7 @@ const getCountryData = function (country) {
 const searchBox = document.getElementById("searchBox");
 
 const SearchButton = document.getElementById("btn");
+
 let inputValue;
 SearchButton.addEventListener("click", function () {
   inputValue = searchBox.value;
@@ -114,3 +119,16 @@ SearchButton.addEventListener("click", function () {
 
 // getCountryData("nigeria");
 // getCountryData("usa");
+
+document.addEventListener("keydown", function (e) {
+  if (e.key === "Enter") {
+    inputValue = searchBox.value;
+    getCountryData(inputValue);
+
+    console.log(inputValue);
+    // if (!data.name.common) {
+    //   alert("not a country name!");
+    // }
+    searchBox.value = "";
+  }
+});
