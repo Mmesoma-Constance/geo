@@ -81,7 +81,7 @@ const getCountryData = function (country) {
                   <span>🌐</span>${data.borders.join(", ")}
                 </p>`
                 : ""
-            };
+            }
           </div>
         </article>`;
 
@@ -89,7 +89,7 @@ const getCountryData = function (country) {
     countriesContainer.style.opacity = 1;
   });
   request.addEventListener("error", function () {
-    alert("An error occured!");
+    alert("No internet connection, try again later!");
   });
 };
 
